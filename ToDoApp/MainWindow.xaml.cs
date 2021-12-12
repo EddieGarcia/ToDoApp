@@ -25,10 +25,11 @@ namespace ToDoApp
             session = sessionFactory.OpenSession();
             todoService = new TodoService();
 
+            // initialize grid
             RefreshDataGrid();
         }
 
-        private void RefreshDataGrid()
+        public void RefreshDataGrid()
         {
             System.Diagnostics.Debug.WriteLine("Loading data and refreshing grid");
             todoDataGrid.ItemsSource = todoService.getAllTodos(session);
@@ -37,26 +38,29 @@ namespace ToDoApp
         public void Save_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Persistintg new item");
-            string newName = newItemName.Text;
-            string newText = newItemText.Text;
-            if(newName.Length == 0)
+            TodoPopup popup = new TodoPopup(session, todoService, this, null);
+            popup.Show();
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Updating item");
+            Todo toUpdate = (Todo) todoDataGrid.SelectedItem;
+            if (toUpdate == null)
             {
-                MessageBox.Show("Please fill in name");
+                MessageBox.Show("Please select row to update todo");
             }
             else
             {
-                todoService.createTodo(session, new Todo { Name = newName, Text = newText });
-                newItemName.Clear();
-                newItemText.Clear();
-                RefreshDataGrid();
-                MessageBox.Show("New TODO saved");
+                TodoPopup popup = new TodoPopup(session, todoService, this, toUpdate);
+                popup.Show();
             }
         }
 
         public void Delete_Click(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Deleting item");
-            Todo toDelete = (Todo)todoDataGrid.SelectedItem;
+            Todo toDelete = (Todo) todoDataGrid.SelectedItem;
             if (toDelete == null)
             {
                 MessageBox.Show("Please select row to delete");
@@ -65,7 +69,7 @@ namespace ToDoApp
             {
                 todoService.deleteTodo(session, toDelete);
                 RefreshDataGrid();
-                MessageBox.Show("TODO deleted");
+                MessageBox.Show($"Todo {toDelete.ID} deleted");
             }
         }
     }

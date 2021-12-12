@@ -5,7 +5,7 @@ using NHibernate;
 
 namespace ToDoApp.service
 {
-    internal class TodoService
+    public class TodoService
     {
         public IEnumerable<Todo> getAllTodos(ISession session)
         {
@@ -21,11 +21,20 @@ namespace ToDoApp.service
             }
         }
 
-        public void createTodo(ISession session, Todo todo)
+        public void saveTodo(ISession session, Todo todo)
         {
             using (session.BeginTransaction())
             {
                 session.Save(todo);
+                session.GetCurrentTransaction().Commit();
+            }
+        }
+
+        public void mergeTodo(ISession session, Todo todo)
+        {
+            using (session.BeginTransaction())
+            {
+                session.Merge(todo);
                 session.GetCurrentTransaction().Commit();
             }
         }
