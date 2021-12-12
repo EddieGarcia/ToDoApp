@@ -38,7 +38,7 @@ namespace ToDoApp
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private void OnSaveClick(object sender, RoutedEventArgs e)
         {
             Todo newTodo = new Todo() { Name = NameTextBox.Text, Text = TextTextBox.Text };
             if (todo == null)
@@ -58,7 +58,7 @@ namespace ToDoApp
             this.Close();
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e)
+        private void OnCancelClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

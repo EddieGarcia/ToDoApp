@@ -4,7 +4,7 @@ using NHibernate.Cfg;
 using ToDoApp.model;
 using ToDoApp.service;
 using FluentNHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
+using System.ComponentModel;
 
 namespace ToDoApp
 {
@@ -44,17 +44,17 @@ namespace ToDoApp
             todoDataGrid.ItemsSource = todoService.getAllTodos(session);
         }
 
-        public void Save_Click(object sender, RoutedEventArgs e)
+        private void OnSaveClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Persistintg new item");
             TodoPopup popup = new TodoPopup(session, todoService, this, null);
             popup.Show();
         }
 
-        private void Update_Click(object sender, RoutedEventArgs e)
+        private void OnUpdateClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Updating item");
-            Todo toUpdate = (Todo) todoDataGrid.SelectedItem;
+            Todo toUpdate = (Todo)todoDataGrid.SelectedItem;
             if (toUpdate == null)
             {
                 MessageBox.Show("Please select row to update todo");
@@ -66,10 +66,10 @@ namespace ToDoApp
             }
         }
 
-        public void Delete_Click(object sender, RoutedEventArgs e)
+        private void OnDeleteClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Deleting item");
-            Todo toDelete = (Todo) todoDataGrid.SelectedItem;
+            Todo toDelete = (Todo)todoDataGrid.SelectedItem;
             if (toDelete == null)
             {
                 MessageBox.Show("Please select row to delete");
@@ -79,6 +79,16 @@ namespace ToDoApp
                 todoService.deleteTodo(session, toDelete);
                 RefreshDataGrid();
                 MessageBox.Show($"Todo {toDelete.ID} deleted");
+            }
+        }
+
+        private void OnWindowClose(object sender, CancelEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Sayonara!");
+            if (session != null)
+            {
+                session.Flush();
+                session.Dispose();
             }
         }
     }

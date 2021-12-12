@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Todo popup" Height="325" Width="285">
     <Grid Margin="0,0,0,-6">
-        <Button Content="Save" HorizontalAlignment="Left" Margin="207,251,0,0" VerticalAlignment="Top" Click="Save_Click" RenderTransformOrigin="2.842,2.442" Width="48"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="145,251,0,0" VerticalAlignment="Top" Click="Cancel_Click" Width="48"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="207,251,0,0" VerticalAlignment="Top" Click="OnSaveClick" RenderTransformOrigin="2.842,2.442" Width="48"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="145,251,0,0" VerticalAlignment="Top" Click="OnCancelClick" Width="48"/>
         <TextBox x:Name="NameTextBox" HorizontalAlignment="Center" Margin="0,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" RenderTransformOrigin="0.034,0.787"/>
         <TextBox x:Name="TextTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="225" Height="123" Margin="0,115,0,0"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="28,43,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.674,-0.996"/>
