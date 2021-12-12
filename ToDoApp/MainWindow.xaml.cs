@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using ToDoApp.model;
 using ToDoApp.service;
+using FluentNHibernate.Cfg;
 
 namespace ToDoApp
 {
@@ -21,7 +22,12 @@ namespace ToDoApp
             Configuration config = new Configuration();
             config.Configure();
 
-            ISessionFactory sessionFactory = config.BuildSessionFactory();
+            // Add nhibernate fluent mappings
+            ISessionFactory sessionFactory = Fluently.Configure(config).Mappings(m =>
+            {
+                m.FluentMappings.AddFromAssemblyOf<TodoMapping>();
+            }).BuildSessionFactory();
+
             session = sessionFactory.OpenSession();
             todoService = new TodoService();
 
