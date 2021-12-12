@@ -2,7 +2,7 @@
 
 namespace ToDoApp.model
 {
-    // use fluent mapping over xml maping https://www.tutorialspoint.com/nhibernate/nhibernate_fluent_hibernate.htm
+    // use fluent mapping over xml mapping https://www.tutorialspoint.com/nhibernate/nhibernate_fluent_hibernate.htm
 
     public class TodoMapping : ClassMap<Todo>
     {

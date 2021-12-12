@@ -4,6 +4,7 @@ using NHibernate.Cfg;
 using ToDoApp.model;
 using ToDoApp.service;
 using FluentNHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace ToDoApp
 {
@@ -22,16 +23,18 @@ namespace ToDoApp
             Configuration config = new Configuration();
             config.Configure();
 
-            // Add nhibernate fluent mappings
-            ISessionFactory sessionFactory = Fluently.Configure(config).Mappings(m =>
-            {
-                m.FluentMappings.AddFromAssemblyOf<TodoMapping>();
-            }).BuildSessionFactory();
+            ISessionFactory sessionFactory = Fluently.Configure(config)
+                .Mappings(m =>
+                {
+                    // Add nhibernate fluent mappings here
+                    m.FluentMappings.AddFromAssemblyOf<TodoMapping>();
+                })
+                // Uncomment following line to allow DB schema creation from model
+                //.ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(true, true, false))
+                .BuildSessionFactory();
 
             session = sessionFactory.OpenSession();
             todoService = new TodoService();
-
-            // initialize grid
             RefreshDataGrid();
         }
 
