@@ -5,6 +5,7 @@ using ToDoApp.model;
 using ToDoApp.service;
 using FluentNHibernate.Cfg;
 using System.ComponentModel;
+using ToDoApp.view;
 
 namespace ToDoApp
 {
@@ -16,6 +17,7 @@ namespace ToDoApp
         // One Db session for application lifetime
         private ISession session;
         private TodoService todoService;
+        private PersonService personService;
 
         public MainWindow()
         {
@@ -28,6 +30,8 @@ namespace ToDoApp
                 {
                     // Add nhibernate fluent mappings here
                     m.FluentMappings.AddFromAssemblyOf<TodoMapping>();
+                    m.FluentMappings.AddFromAssemblyOf<PersonMapping>();
+                    m.FluentMappings.AddFromAssemblyOf<SubTaskMapping>();
                 })
                 // Uncomment following line to allow DB schema creation from model
                 //.ExposeConfiguration(cfg => new SchemaExport(cfg).Execute(true, true, false))
@@ -35,6 +39,7 @@ namespace ToDoApp
 
             session = sessionFactory.OpenSession();
             todoService = new TodoService();
+            personService = new PersonService();
             RefreshDataGrid();
         }
 
@@ -47,7 +52,7 @@ namespace ToDoApp
         private void OnSaveClick(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Persistintg new item");
-            TodoPopup popup = new TodoPopup(session, todoService, this, null);
+            TodoPopup popup = new TodoPopup(session, todoService, personService, this, null);
             popup.Show();
         }
 
@@ -61,7 +66,7 @@ namespace ToDoApp
             }
             else
             {
-                TodoPopup popup = new TodoPopup(session, todoService, this, toUpdate);
+                TodoPopup popup = new TodoPopup(session, todoService, personService, this, toUpdate);
                 popup.Show();
             }
         }
@@ -82,6 +87,13 @@ namespace ToDoApp
             }
         }
 
+        private void OnAddUser(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Adding user");
+            UserManagement umWindow = new UserManagement(session, personService);
+            umWindow.Show();
+        }
+
         private void OnWindowClose(object sender, CancelEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Sayonara!");
@@ -91,5 +103,6 @@ namespace ToDoApp
                 session.Dispose();
             }
         }
+
     }
 }
