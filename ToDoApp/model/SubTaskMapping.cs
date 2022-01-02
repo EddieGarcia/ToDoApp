@@ -10,6 +10,7 @@ namespace ToDoApp.model
             Map(x => x.Text);
             Map(x => x.Done);
             References(x => x.ParentTodo).Cascade.None();
+            References(x => x.AssignedPerson).Cascade.None();
             Table("SubTask");
         }
     }

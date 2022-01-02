@@ -28,6 +28,7 @@ namespace ToDoApp
             InitializeComponent();
             IEnumerable<Person> allPersons = this.personService.getAllPersons(this.session);
             PersonListBox.ItemsSource = allPersons;
+            AssignedPersonComboBox.ItemsSource = allPersons;
 
             if (todo == null)
             {

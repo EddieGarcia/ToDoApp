@@ -19,6 +19,9 @@
                 <DataGridTextColumn Header="Id" Binding="{Binding ID}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Text" Binding="{Binding Text}" MinWidth="200"/>
                 <DataGridCheckBoxColumn Header="Done" Binding="{Binding Done}"/>
+                <DataGridComboBoxColumn Header="Assigned person" x:Name="AssignedPersonComboBox" 
+                    SelectedValueBinding="{Binding AssignedPerson, Mode=TwoWay}"  
+                    DisplayMemberPath="FullName"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="SubTasks" HorizontalAlignment="Left" Margin="27,292,0,0" VerticalAlignment="Top" Width="96"/>

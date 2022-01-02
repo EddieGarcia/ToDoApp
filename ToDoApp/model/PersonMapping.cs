@@ -10,6 +10,7 @@ namespace ToDoApp.model
             Map(x => x.FirstName);
             Map(x => x.LastName);
             HasManyToMany(x => x.AssignedTodos).Cascade.None().Inverse().Table("TodoPerson");
+            HasMany(x => x.AssignedSubtasks).Cascade.None().Inverse();
             Table("Person");
         }
     }
