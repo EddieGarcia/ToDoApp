@@ -8,7 +8,15 @@
         mc:Ignorable="d"
         Title="TodoApp" Height="450" Width="800">
     <Grid>
-        <DataGrid Name="todoDataGrid" Margin="10,0,10,0"/>
+        <DataGrid Name="todoDataGrid" Margin="10,0,10,0" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding ID}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" MinWidth="200"/>
+                <DataGridTextColumn Header="Text" Binding="{Binding Text}"/>
+                <DataGridTextColumn Header="Progress" Binding="{Binding SubtasksDone, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Managers" Binding="{Binding AssignedManagers, Mode=OneWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Grid.Column="1" Content="Create Todo" HorizontalAlignment="Center" Height="26" VerticalAlignment="Top" Width="112" Click="OnSaveClick" RenderTransformOrigin="0.439,-4.251" Margin="0,298,0,0"/>
         <Button Grid.Column="1" Content="Delete Todo" HorizontalAlignment="Center" Margin="0,369,0,0" VerticalAlignment="Top" Height="26" Width="112"  Click="OnDeleteClick" RenderTransformOrigin="0.539,-3.142"/>
         <Button Grid.Column="1" Content="Update Todo" HorizontalAlignment="Center" Margin="0,334,0,0" VerticalAlignment="Top" Width="111" Click="OnUpdateClick" Height="25"/>
