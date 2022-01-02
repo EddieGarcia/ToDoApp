@@ -12,6 +12,6 @@ namespace ToDoApp.model
         public virtual IList<SubTask> SubTasks { get; set; }
         // computed properties
         public virtual string SubtasksDone { get { return $"{this.SubTasks.Where(st => st.Done).Count()}/{this.SubTasks.Count}"; } }
-        public virtual string AssignedManagers { get { return this.Persons.Aggregate("", (acc, person) => $"{acc}, {person.LastName}"); } }
+        public virtual string AssignedManagers { get { return string.Join(",", this.Persons.Select(pe => pe.LastName)); } }
     }
 }

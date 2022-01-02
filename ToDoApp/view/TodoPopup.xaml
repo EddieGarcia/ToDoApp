@@ -39,6 +39,6 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Content="Assigned persons" HorizontalAlignment="Left" Margin="283,43,0,0" VerticalAlignment="Top"/>
+        <Label Content="Assigned managers" HorizontalAlignment="Left" Margin="283,43,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
