@@ -1,6 +1,9 @@
 # ToDoApp
 Simple Todo App WPF + NHibernate (Fluent) + MSSQL 2019
 
+ER diagram:
+![diagram](https://user-images.githubusercontent.com/8282513/147873909-3faf228e-9f68-4580-a8fc-69c4279a3a1d.png)
+
 ## How to run it
 1. Adjust connection string in App.config
 2. Run it
